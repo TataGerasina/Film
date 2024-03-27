@@ -42,8 +42,6 @@ public class FilmManagerTest {
         manager.add("Отель Белград");
         manager.add("Джентельмены");
 
-
-
         String[] expected = {"Бладшот", "Вперёд", "Отель Белград", "Джентельмены"};
         String[] actual = manager.findAll();
 
