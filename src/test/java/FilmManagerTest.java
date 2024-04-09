@@ -3,14 +3,69 @@ import org.junit.jupiter.api.Test;
 
 public class FilmManagerTest {
 
-    Film film1 = new Film(1, "Бладшот", "боевик", false);
-    Film film2 = new Film(2, "Вперёд", "мультфильм",false);
-    Film film3 = new Film(3, "Отель Белград", "комедия",false);
-    Film film4 = new Film(4, "Джентельмены", "боевик",false);
-    Film film5 = new Film(5, "Человек-невидимка", "ужасы",false);
-    Film film6 = new Film(6,"Тролли. Мировой тур", "мультфильм",true);
-    Film film7 = new Film(7, "Номер один", "комедия", true);
+//    Film film1 = new Film(1, "Бладшот", "боевик", false);
+//    Film film2 = new Film(2, "Вперёд", "мультфильм",false);
+//    Film film3 = new Film(3, "Отель Белград", "комедия",false);
+//    Film film4 = new Film(4, "Джентельмены", "боевик",false);
+//    Film film5 = new Film(5, "Человек-невидимка", "ужасы",false);
+//    Film film6 = new Film(6,"Тролли. Мировой тур", "мультфильм",true);
+//    Film film7 = new Film(7, "Номер один", "комедия", true);
 
+    @Test
+    public void moreThanTheLimit() { //получение посл фильмов, когда в менеджере фильмов больше, чем Лимит
+
+        FilmManager manager = new FilmManager();
+
+        manager.add("Бладшот");
+        manager.add("Вперёд");
+        manager.add("Отель Белград");
+        manager.add("Джентельмены");
+        manager.add("Человек-невидимка");
+        manager.add("Тролли. Мировой тур");
+        manager.add("Номер один");
+        manager.add("Мир дикого запада");
+        manager.add("Она написала убийство");
+
+
+        String[] expected = {"Она написала убийство", "Мир дикого запада","Номер один", "Тролли. Мировой тур","Человек-невидимка"};
+        String[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void lessThanTheLimit() { //получение посл фильмов, когда в менеджере фильмов меньше, чем Лимит
+
+        FilmManager manager = new FilmManager();
+
+        manager.add("Номер один");
+        manager.add("Мир дикого запада");
+        manager.add("Она написала убийство");
+
+
+        String[] expected = {"Она написала убийство", "Мир дикого запада","Номер один"};
+        String[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+
+    @Test
+    public void setFilmsWhenEqualLimit() { //получение посл фильмов, когда в менеджере фильмов столько же, равно Лимит(5)
+
+        FilmManager manager = new FilmManager();
+
+        manager.add("Бладшот");
+        manager.add("Вперёд");
+        manager.add("Отель Белград");
+        manager.add("Джентельмены");
+        manager.add("Человек-невидимка");
+
+        String[] expected = {"Человек-невидимка", "Джентельмены", "Отель Белград", "Вперёд", "Бладшот"};
+        String[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
 
     @Test
     public void setFilm0() {
